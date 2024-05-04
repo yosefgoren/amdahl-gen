@@ -1,0 +1,32 @@
+{
+    "$id": "significant.result.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "required": [
+        "config",
+        "context",
+        "data"
+    ],
+    "type": "object",
+    "properties": {
+        "config": {
+            "$ref": "significant.config.schema.json"
+        },
+        "context": {
+            "$ref": "context.schema"
+        },
+        "data": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "lineno": {
+                        "type": "number"
+                    },
+                    "average-runtime-milisec": {
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    }
+}

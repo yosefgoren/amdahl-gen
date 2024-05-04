@@ -1,0 +1,35 @@
+{
+    "$id": "sample.result.schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "required": [
+        "config",
+        "context",
+        "data"
+    ],
+    "type": "object",
+    "properties": {
+        "config": {
+            "$ref": "sample.config.schema.json"
+        },
+        "context": {
+            "$ref": "context.schema"
+        },
+        "data": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "lineno": {
+                        "type": "number"
+                    },
+                    "runtime-milisec": {
+                        "type": "number"
+                    },
+                    "times-executed": {
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    }
+}

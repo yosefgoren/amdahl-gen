@@ -1,0 +1,32 @@
+{
+    "$id": "alpha.result.schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": [
+        "config",
+        "context",
+        "data"
+    ],
+    "properties": {
+        "config": {
+            "$ref": "alpha.config.schema"
+        },
+        "context": {
+            "$ref": "context.schema"
+        },
+        "data": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "lineno": {
+                        "type": "number"
+                    },
+                    "alpha": {
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    }
+}
