@@ -15,18 +15,14 @@
             "$ref": "context.schema"
         },
         "data": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "lineno": {
-                        "type": "number"
-                    },
-                    "average-runtime-milisec": {
-                        "type": "number"
-                    }
+            "type": "object",
+            "patternProperties": {
+                "^[0-9]+$": {
+                    "description": "the average runtime of this line",
+                    "type": "number"
                 }
-            }
+            },
+            "additionalProperties": false
         }
     }
 }

@@ -3,14 +3,17 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
+        "exe-path": {
+            "type": "string"
+        },
         "thread-counts": {
             "type": "array",
             "items": {
                 "type": "number"
             }
         },
-        "exe-path": {
-            "type": "string"
+        "num-reps": {
+            "type": "number"
         }
     }
 }
