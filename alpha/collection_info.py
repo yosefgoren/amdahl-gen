@@ -1,8 +1,11 @@
-import json, jsonschema
-# from significant.collect import collect_significant
+import json
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize
 import numpy as np
+from framework.config import *
+from framework.job_master import *
+from framework.database import *
+from framework.collections import *
 
 class TargetFunc:
     def __init__(self, points, formula):
@@ -58,14 +61,13 @@ def _setsum(sets: list[set]) -> set:
         res += s
     return res
 
-def collect_alpha(config: object) -> object:
-    jsonschema.validate(config, json.load(open("alpha.config.schema.json")))
-    sig_configs = [{
-        "exe-path": config["exe-path"],
-        "thread-count": count,
-        "repetitions": config["num-reps"]
-    } for count in config["thread-counts"]]
-    results = [collect_significant(sig_conf) for sig_conf in sig_configs]
+def _collect_alpha(master: JobMaster, config: Config) -> object:    
+    sig_configs = [
+        Config.create_significant(config["exe-path"], count, config["num-reps"])
+        for count in config["thread-counts"]
+    ]
+    result_ids: list[ElementId] = [list(master.db.get(master.satisfy(sig_conf))[0]) for sig_conf in sig_configs]
+    results: list[object] = [master.db.get(res_id) for res_id in result_ids]
     
     all_line_numbers = _setsum([set(res["data"].keys()) for res in results])
     # TODO: verify all have every line numbers?
@@ -76,6 +78,25 @@ def collect_alpha(config: object) -> object:
         alphas_by_line[lineno] = _fit_curve(line_curve_points)
 
     return alphas_by_line
+
+class AlphaCollectionInfo(CollectionInfo):
+    def get_field_names(self) -> list[str]:
+        return [
+            "exe_path",
+            "thread_counts",
+            "num_reps",
+        ]
+
+    def get_collector(self) -> function:
+        return _collect_alpha
+
+    def create_config(exe_path: str, thread_count: int, num_reps: int) -> Config:
+        return Config({
+            "conf_type": "significant",
+            "exe_path": exe_path,
+            "thread_count": thread_count,
+            "num_reps": num_reps,
+        })
 
 if __name__ == "__main__":
     print(_fit_curve([(1, 8), (2, 5), (4, 3), (8, 2)]))

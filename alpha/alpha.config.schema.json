@@ -3,16 +3,22 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
-        "exe-path": {
+        "conf_type": {
+            "type": "string",
+            "enum": [
+                "alpha"
+            ]
+        },
+        "exe_path": {
             "type": "string"
         },
-        "thread-counts": {
+        "thread_counts": {
             "type": "array",
             "items": {
                 "type": "number"
             }
         },
-        "num-reps": {
+        "num_reps": {
             "type": "number"
         }
     }

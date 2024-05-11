@@ -22,10 +22,10 @@
                     "lineno": {
                         "type": "number"
                     },
-                    "runtime-milisec": {
+                    "tot_runtime_milisec": {
                         "type": "number"
                     },
-                    "times-executed": {
+                    "times_executed": {
                         "type": "number"
                     }
                 }

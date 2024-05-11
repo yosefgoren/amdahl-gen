@@ -1,0 +1,4 @@
+manifest.pondera.json
+__pycache__/
+.vscode/
+tmp.py

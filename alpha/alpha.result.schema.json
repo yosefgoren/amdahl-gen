@@ -15,14 +15,18 @@
             "$ref": "context.schema"
         },
         "data": {
-            "type": "object",
-            "patternProperties": {
-                "^[0-9]+$": {
-                    "description": "the alpha value of this line",
-                    "type": "number"
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "lineno": {
+                        "type": "number"
+                    },
+                    "alpha": {
+                        "type": "number"
+                    }
                 }
-            },
-            "additionalProperties": false
+            }
         }
     }
 }
