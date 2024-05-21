@@ -1,28 +1,39 @@
-from sample.parse_perfanno import *
-from framework.collections import CollectionInfo
-from framework.config import *
+import os
 from framework.job_master import *
+from framework.config import *
+from typing import Callable
+from sample.parse_perfanno import *
+from sample.parse_perfanno import parse_peranno_txt
+import framework.collections
 
-def perf_exec(exe_path: str) -> str:
-    pass
+class ExecutionFail(Exception):
+    def __init__(self, retval):
+        self.retval = retval
 
-def annotate_and_parse(data_path) -> str:
-    pass
+    def __str__(self):
+        return f"execution failed with return value: {self.retval}"
+        
+def safesystem(cmd):
+    print(f"running command: '{cmd}'")
+    res = os.system(cmd)
+    if res != 0:
+        raise ExecutionFail(res)
 
-def _collect_sample(master: JobMaster, config: object) -> object:
-    output_path = perf_exec(config["exe-path"])
+def _annotate_and_parse(data_path: str) -> str:
+    anno_path = f"{data_path}.annotated"
+    safesystem(f"perf annotate -i {data_path} > {anno_path}")
+    with open(anno_path, 'r') as f:
+        return parse_peranno_txt(f.read())
 
-    return annotate_and_parse(output_path)
-
-
-class SampleCollectionInfo(CollectionInfo):
+class SampleCollector(framework.collections.Collector):
     def get_field_names(self) -> list[str]:
         return [
             "exe_path",
-            "thread_count"
+            "thread_count",
+            "conf_type"
         ]
 
-    def get_collector(self) -> function:
+    def get_collector(self) -> Callable:
         return _collect_sample
 
     def create_config(exe_path: str, thread_count: int) -> Config:
@@ -31,3 +42,9 @@ class SampleCollectionInfo(CollectionInfo):
             "exe_path": exe_path,
             "thread_count": thread_count,
         })
+
+def _collect_sample(master: JobMaster, config: SampleCollector) -> object:
+    data_path = f"{config.exe_path}.tmp.data"
+    # safesystem(f"numactl -N 0 perf record {exe_path} && mv perf.data {data_path}")
+    safesystem(f"perf record {config.exe_path} && mv perf.data {data_path}")
+    return _annotate_and_parse(data_path)

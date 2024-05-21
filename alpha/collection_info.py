@@ -63,10 +63,10 @@ def _setsum(sets: list[set]) -> set:
 
 def _collect_alpha(master: JobMaster, config: Config) -> object:    
     sig_configs = [
-        Config.create_significant(config["exe-path"], count, config["num-reps"])
-        for count in config["thread-counts"]
+        Config.create_significant(config["exe_path"], count, config["num_reps"])
+        for count in config["thread_counts"]
     ]
-    result_ids: list[ElementId] = [list(master.db.get(master.satisfy(sig_conf))[0]) for sig_conf in sig_configs]
+    result_ids: list[int] = [list(master.db.get(master.satisfy(sig_conf))[0]) for sig_conf in sig_configs]
     results: list[object] = [master.db.get(res_id) for res_id in result_ids]
     
     all_line_numbers = _setsum([set(res["data"].keys()) for res in results])
@@ -74,20 +74,21 @@ def _collect_alpha(master: JobMaster, config: Config) -> object:
     alphas_by_line = dict()
     for lineno in all_line_numbers:
         line_runtimes = [res["data"][lineno] for res in results]
-        line_curve_points = zip(config["thread-counts"], line_runtimes)
+        line_curve_points = zip(config["thread_counts"], line_runtimes)
         alphas_by_line[lineno] = _fit_curve(line_curve_points)
 
     return alphas_by_line
 
-class AlphaCollectionInfo(CollectionInfo):
+class AlphaCollector(Collector):
     def get_field_names(self) -> list[str]:
         return [
             "exe_path",
             "thread_counts",
             "num_reps",
+            "conf_type"
         ]
 
-    def get_collector(self) -> function:
+    def get_collector(self) -> Callable:
         return _collect_alpha
 
     def create_config(exe_path: str, thread_count: int, num_reps: int) -> Config:

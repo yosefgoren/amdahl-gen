@@ -1,7 +1,11 @@
-def setsum(sets: list[set]) -> set:
+from typeguard import typechecked
+from typing import Iterable
+
+@typechecked
+def setsum(sets: Iterable[set]) -> set:
     res = set()
     for s in sets:
-        res += s
+        res.union(s)
     return res
 
 def map_byline(results: list[dict]) -> dict[int, list]:

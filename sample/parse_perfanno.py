@@ -1,6 +1,7 @@
 #!/bin/pypy3
 from lark import Lark
 from lark.tree import Tree
+import json
 
 def _tree_to_json(tree):
     if isinstance(tree, Tree):
@@ -11,11 +12,14 @@ def _tree_to_json(tree):
 def _unshell(tgt: list):
     return tgt[0]
 
+def _derefint(tgt: list):
+    return int(tgt[0])
+
 def _strsum(tgt: list):
     return 0.0 + sum(float(num) for num in tgt) # initial 0.0 ensures float result
 
 def _process_json_tree(jtree):
-    return [{key: aggregator(srcline["srcline"][i][key]) for i, (key, aggregator) in enumerate([("lineno", _unshell), ("linetxt", _unshell), ("runtime", _strsum)])} for srcline in jtree["start"]]
+    return [{key: aggregator(srcline["srcline"][i][key]) for i, (key, aggregator) in enumerate([("lineno", _derefint), ("linetxt", _unshell), ("runtime", _strsum)])} for srcline in jtree["start"]]
 
 def parse_peranno_txt(text: str) -> object:
     parser = Lark(
@@ -56,4 +60,6 @@ def parse_peranno_txt(text: str) -> object:
 
     parsed = parser.parse(text)
     full_jtree = _tree_to_json(parsed)
+    with open('tmp.json', 'w') as f:
+        json.dump(full_jtree, f, indent=4)
     return _process_json_tree(full_jtree)

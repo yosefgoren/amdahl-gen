@@ -9,10 +9,10 @@
     "type": "object",
     "properties": {
         "config": {
-            "$ref": "significant.config.schema.json"
+            "$ref": "file:significant/significant.config.schema.json"
         },
         "context": {
-            "$ref": "context.schema"
+            "$ref": "file:framework/context.schema.json"
         },
         "data": {
             "type": "array",

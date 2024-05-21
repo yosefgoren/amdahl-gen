@@ -9,10 +9,10 @@
     ],
     "properties": {
         "config": {
-            "$ref": "alpha.config.schema"
+            "$ref": "file:alpha/alpha.config.schema.json"
         },
         "context": {
-            "$ref": "context.schema"
+            "$ref": "file:framework/context.schema.json"
         },
         "data": {
             "type": "array",
