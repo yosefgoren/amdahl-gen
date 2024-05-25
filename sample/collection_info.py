@@ -21,7 +21,7 @@ def safesystem(cmd):
 
 def _annotate_and_parse(data_path: str) -> str:
     anno_path = f"{data_path}.annotated"
-    safesystem(f"perf annotate -i {data_path} > {anno_path}")
+    safesystem(f"perf annotate --itrace -i {data_path} > {anno_path}")
     with open(anno_path, 'r') as f:
         return parse_peranno_txt(f.read())
 

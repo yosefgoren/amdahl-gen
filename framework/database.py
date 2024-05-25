@@ -1,6 +1,7 @@
 from framework.config import *
 import json, os
 import random
+from typeguard import typechecked
 
 def get_rand_id(value: int | None = None):
     return random.randint(0, 1e12) if value is None else value

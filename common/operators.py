@@ -14,7 +14,7 @@ def map_byline(results: list[dict]) -> dict[int, list]:
         for res in results
     ]
     byline_entries = dict()
-    all_linenos = setsum(res.keys() for res in byline_results)
+    all_linenos = set().union(*[res.keys() for res in byline_results])
     for lineno in all_linenos:
         byline_entries[lineno] = []
         for res in byline_results:

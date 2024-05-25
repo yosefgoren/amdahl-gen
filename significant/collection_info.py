@@ -4,8 +4,10 @@ import framework.collections
 from sample.collection_info import SampleCollector
 from common.operators import *
 from typing import Callable
+from typeguard import typechecked
 
-def _average(s) -> float:
+@typechecked
+def _average(s: list) -> float:
     return sum(s)/len(s)
 
 
@@ -38,5 +40,6 @@ def collect_significant(master: JobMaster, config: SignificantCollector) -> list
     entries_byline: dict[int, list[object]] = map_byline(results)
     return [{
         "lineno": lineno,
-        "avg_runtime_milisec": _average(entry["times_executed"] for entry in entries)
+        "avg_runtime_milisec": _average([entry["runtime"] for entry in entries]),
+        "linetxt": entries[0]["linetxt"]
     } for lineno, entries in entries_byline.items()]
