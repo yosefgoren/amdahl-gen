@@ -22,7 +22,7 @@
                     "lineno": {
                         "type": "number"
                     },
-                    "avg_runtime_milisec": {
+                    "avg_ipc": {
                         "type": "number"
                     }
                 }

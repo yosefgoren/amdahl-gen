@@ -1,4 +1,5 @@
-import json, jsonschema
+import json
+import jsonschema
 import os, sys
 from framework.context import get_context
 from framework.collections import Collector

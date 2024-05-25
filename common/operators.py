@@ -1,13 +1,3 @@
-from typeguard import typechecked
-from typing import Iterable
-
-@typechecked
-def setsum(sets: Iterable[set]) -> set:
-    res = set()
-    for s in sets:
-        res.union(s)
-    return res
-
 def map_byline(results: list[dict]) -> dict[int, list]:
     byline_results = [
         {entry["lineno"]: entry for entry in res["data"]}

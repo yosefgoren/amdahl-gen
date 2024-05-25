@@ -21,7 +21,7 @@ def safesystem(cmd):
 
 def _annotate_and_parse(data_path: str) -> str:
     anno_path = f"{data_path}.annotated"
-    safesystem(f"perf annotate --itrace -i {data_path} > {anno_path}")
+    safesystem(f"perf annotate --show-total-period --stdio -i {data_path} > {anno_path}")
     with open(anno_path, 'r') as f:
         return parse_peranno_txt(f.read())
 
@@ -46,5 +46,6 @@ class SampleCollector(framework.collections.Collector):
 def _collect_sample(master: JobMaster, config: SampleCollector) -> object:
     data_path = f"{config.exe_path}.tmp.data"
     # safesystem(f"numactl -N 0 perf record {exe_path} && mv perf.data {data_path}")
-    safesystem(f"perf record {config.exe_path} && mv perf.data {data_path}")
+    exec_cmd = f"{config.exe_path}"
+    safesystem(f"OMP_NUM_THREADS={config.thread_count} perf record -ecycles:u,instructions:u -c 100000 {config.exe_path} && mv perf.data {data_path}")
     return _annotate_and_parse(data_path)

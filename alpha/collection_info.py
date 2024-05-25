@@ -2,10 +2,12 @@ import json
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize
 import numpy as np
+from significant.collection_info import SignificantCollector
 from framework.config import *
 from framework.job_master import *
 from framework.database import *
 from framework.collections import *
+from common.operators import map_byline
 
 class TargetFunc:
     def __init__(self, points, formula):
@@ -20,7 +22,7 @@ class TargetFunc:
             total_error += error
         return total_error
 
-def _fit_curve(points: list[tuple[float, float]]) -> float:
+def _fit_curve(points: list[tuple[float, float]], make_photo: str | None = None) -> float:
     """runtime_alpha(t) = alpha / x + (1 - alpha)"""
     
     # Initial guess for 'a'
@@ -39,45 +41,52 @@ def _fit_curve(points: list[tuple[float, float]]) -> float:
     result = minimize(curve, initial_guess)
 
     # Extract the optimized value of 'a'
+    # optimized_a = result.x[0]
     optimized_a = result.x[0]
-    # Plotting the curve
-    
-    x_values = np.linspace(0.1, 10, 100)  # Generate x values for plotting
-    y_values = optimized_a / x_values + (1 - optimized_a)  # Calculate y values for the curve
 
-    plt.figure(figsize=(8, 6))
-    plt.scatter(*zip(*normalized_points), label='Data Points')
-    plt.plot(x_values, y_values, color='red', label='Fitted Curve')
-    plt.xlabel('Num Threads')
-    plt.ylabel('Runtime')
-    plt.title(f'Alpha = {optimized_a:.3f}, Loss = {curve(optimized_a):.3f}')
-    plt.legend()
-    plt.grid(True)
-    plt.savefig('out.png')
 
-def _setsum(sets: list[set]) -> set:
-    res = set()
-    for s in sets:
-        res += s
-    return res
+    if isinstance(make_photo, str) is not None:
+        x_values = np.linspace(0.1, 10, 100)  # Generate x values for plotting
+        y_values = optimized_a / x_values + (1 - optimized_a)  # Calculate y values for the curve
+
+        plt.figure(figsize=(8, 6))
+        plt.scatter(*zip(*normalized_points), label='Data Points')
+        plt.plot(x_values, y_values, color='red', label='Fitted Curve')
+        plt.xlabel('Num Threads')
+        plt.ylabel('Runtime')
+        plt.title(f'Alpha = {optimized_a:.3f}, Loss = {curve(optimized_a):.3f}')
+        plt.legend()
+        plt.grid(True)
+        plt.savefig(make_photo)
+
+    return optimized_a
+
+def _get_first(iterable):
+    for item in iterable:
+        return item
 
 def _collect_alpha(master: JobMaster, config: Config) -> object:    
     sig_configs = [
-        Config.create_significant(config["exe_path"], count, config["num_reps"])
-        for count in config["thread_counts"]
+        SignificantCollector.create_config(config.exe_path, count, config.num_reps)
+        for count in config.thread_counts
     ]
-    result_ids: list[int] = [list(master.db.get(master.satisfy(sig_conf))[0]) for sig_conf in sig_configs]
-    results: list[object] = [master.db.get(res_id) for res_id in result_ids]
+    sig_ids: list[int] = [_get_first(master.satisfy(sig_conf)) for sig_conf in sig_configs]
+    sig_results: list[object] = [master.db.get(res_id) for res_id in sig_ids]
     
-    all_line_numbers = _setsum([set(res["data"].keys()) for res in results])
-    # TODO: verify all have every line numbers?
-    alphas_by_line = dict()
-    for lineno in all_line_numbers:
-        line_runtimes = [res["data"][lineno] for res in results]
-        line_curve_points = zip(config["thread_counts"], line_runtimes)
-        alphas_by_line[lineno] = _fit_curve(line_curve_points)
 
-    return alphas_by_line
+    
+    # all_line_numbers = _setsum([set(res["data"].keys()) for res in results])
+
+    results = []
+    for lineno, by_thread_count in map_byline(sig_results).items():
+        coords = [(thread_count, sig["avg_ipc"]) for sig, thread_count in zip(by_thread_count, config.thread_counts)]
+        alpha = _fit_curve(coords, f"l{lineno}-t{'_'.join(map(str, config.thread_counts))}.png")
+        results.append({
+            "lineno": lineno,
+            "alpha": alpha
+        })
+
+    return results
 
 class AlphaCollector(Collector):
     def get_field_names(self) -> list[str]:
@@ -91,11 +100,11 @@ class AlphaCollector(Collector):
     def get_collector(self) -> Callable:
         return _collect_alpha
 
-    def create_config(exe_path: str, thread_count: int, num_reps: int) -> Config:
+    def create_config(exe_path: str, thread_counts: list[int], num_reps: int) -> Config:
         return Config({
-            "conf_type": "significant",
+            "conf_type": "alpha",
             "exe_path": exe_path,
-            "thread_count": thread_count,
+            "thread_counts": thread_counts,
             "num_reps": num_reps,
         })
 

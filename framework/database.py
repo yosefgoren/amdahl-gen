@@ -7,7 +7,7 @@ def get_rand_id(value: int | None = None):
     return random.randint(0, 1e12) if value is None else value
     
 class Database:
-    DEFAULT_BASEPATH = "/root/amdahl-gen/db_storage"
+    DEFAULT_BASEPATH = "./db_storage"
 
     def __init__(self, basepath: str = None):
         self.basepath = Database.DEFAULT_BASEPATH if basepath is None else basepath
