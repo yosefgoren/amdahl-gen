@@ -22,6 +22,7 @@ def safesystem(cmd):
 def _annotate_and_parse(data_path: str) -> str:
     anno_path = f"{data_path}.annotated"
     safesystem(f"perf annotate --show-total-period --stdio -i {data_path} > {anno_path}")
+    print("parsing annotation...")
     with open(anno_path, 'r') as f:
         return parse_peranno_txt(f.read())
 

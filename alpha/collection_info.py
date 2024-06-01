@@ -45,7 +45,7 @@ def _fit_curve(points: list[tuple[float, float]], make_photo: str | None = None)
     optimized_a = result.x[0]
 
 
-    if isinstance(make_photo, str) is not None:
+    if isinstance(make_photo, str):
         x_values = np.linspace(0.1, 10, 100)  # Generate x values for plotting
         y_values = optimized_a / x_values + (1 - optimized_a)  # Calculate y values for the curve
 
@@ -80,7 +80,8 @@ def _collect_alpha(master: JobMaster, config: Config) -> object:
     results = []
     for lineno, by_thread_count in map_byline(sig_results).items():
         coords = [(thread_count, sig["avg_ipc"]) for sig, thread_count in zip(by_thread_count, config.thread_counts)]
-        alpha = _fit_curve(coords, f"l{lineno}-t{'_'.join(map(str, config.thread_counts))}.png")
+        png_fname = f"l{lineno}-t{'_'.join(map(str, config.thread_counts))}.png"
+        alpha = _fit_curve(coords)
         results.append({
             "lineno": lineno,
             "alpha": alpha

@@ -4,18 +4,18 @@ from framework.job_master import *
 from alpha.collection_info import AlphaCollector as ac
 import os
 
-# os.system("rm -f db_storage/*")
+os.system("rm -f db_storage/*")
 
 m = JobMaster()
 thread_counts = [1, 2, 4]
 num_reps = 3
 exenames = [
     # "./test-targets/fib-static-gcc",
-    # "./test-targets/fib-dynamic-gcc",
     # "./test-targets/fib-static-clang",
     # "./test-targets/fib-dynamic-clang",
     # "./test-targets/bt.B",
-    "./test-targets/bt.A",
+    # "./test-targets/fib-dynamic-gcc",
+    "./test-targets/bt.S",
 ]
 for name in exenames:
     m.satisfy(ac.create_config(name, thread_counts, num_reps))
