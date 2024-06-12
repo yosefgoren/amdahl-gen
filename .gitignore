@@ -1,4 +1,6 @@
 manifest.pondera.json
 __pycache__/
+db_storage/
+graphs/
 .vscode/
 tmp.py

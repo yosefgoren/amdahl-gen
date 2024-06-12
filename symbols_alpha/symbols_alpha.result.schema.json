@@ -1,0 +1,32 @@
+{
+    "$id": "alpha.result.schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": [
+        "config",
+        "context",
+        "data"
+    ],
+    "properties": {
+        "config": {
+            "$ref": "file:symbols_alpha/symbols_alpha.config.schema.json"
+        },
+        "context": {
+            "$ref": "file:framework/context.schema.json"
+        },
+        "data": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "symbol": {
+                        "type": "string"
+                    },
+                    "alpha": {
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    }
+}

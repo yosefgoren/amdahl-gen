@@ -1,0 +1,19 @@
+{
+    "$id": "srclines.config.schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "conf_type": {
+            "type": "string",
+            "enum": [
+                "srclines"
+            ]
+        },
+        "exe_path": {
+            "type": "string"
+        },
+        "thread_count": {
+            "type": "number"
+        }
+    }
+}

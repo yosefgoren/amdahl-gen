@@ -1,0 +1,94 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+# dso: bt.S
+#
+# Total Lost Samples: 0
+#
+# Samples: 29K of event 'cpu_core/cycles:u/'
+# Event count (approx.): 2934200000
+#
+# Overhead       Samples  Command  Symbol                                                        
+# ........  ............  .......  ..............................................................
+#
+     2.03%           596  bt.S     [.] binvcrhs(double (*) [5], double (*) [5], double*)
+     1.83%           538  bt.S     [.] compute_rhs()
+     1.72%           506  bt.S     [.] y_solve()
+     1.69%           495  bt.S     [.] x_solve()
+     1.59%           467  bt.S     [.] z_solve()
+     0.92%           269  bt.S     [.] matmul_sub(double (*) [5], double (*) [5], double (*) [5])
+     0.29%            85  bt.S     [.] matvec_sub(double (*) [5], double*, double*)
+     0.16%            48  bt.S     [.] lhsinit(double (*) [3][5][5], int)
+     0.10%            29  bt.S     [.] add()
+     0.09%            26  bt.S     [.] binvrhs(double (*) [5], double*)
+     0.05%            14  bt.S     [.] exact_solution(double, double, double, double*)
+     0.02%             6  bt.S     [.] initialize()
+
+
+# Samples: 27K of event 'cpu_atom/cycles:u/'
+# Event count (approx.): 2731200000
+#
+# Overhead       Samples  Command  Symbol                                                        
+# ........  ............  .......  ..............................................................
+#
+     0.93%           253  bt.S     [.] compute_rhs()
+     0.92%           252  bt.S     [.] binvcrhs(double (*) [5], double (*) [5], double*)
+     0.75%           205  bt.S     [.] x_solve()
+     0.74%           201  bt.S     [.] z_solve()
+     0.70%           190  bt.S     [.] y_solve()
+     0.58%           159  bt.S     [.] matmul_sub(double (*) [5], double (*) [5], double (*) [5])
+     0.15%            40  bt.S     [.] matvec_sub(double (*) [5], double*, double*)
+     0.08%            22  bt.S     [.] exact_solution(double, double, double, double*)
+     0.05%            15  bt.S     [.] add()
+     0.05%            15  bt.S     [.] exact_rhs()
+     0.05%            15  bt.S     [.] lhsinit(double (*) [3][5][5], int)
+     0.04%            12  bt.S     [.] binvrhs(double (*) [5], double*)
+     0.01%             3  bt.S     [.] initialize()
+     0.00%             1  bt.S     [.] error_norm(double*)
+     0.00%             1  bt.S     [.] omp_get_num_threads@plt
+     0.00%             1  bt.S     [.] verify(int, char*, int*)
+
+
+# Samples: 8K of event 'cpu_core/instructions:u/'
+# Event count (approx.): 802600000
+#
+# Overhead       Samples  Command  Symbol                                                        
+# ........  ............  .......  ..............................................................
+#
+    14.74%          1183  bt.S     [.] compute_rhs()
+    14.47%          1161  bt.S     [.] x_solve()
+    13.08%          1050  bt.S     [.] y_solve()
+    12.36%           992  bt.S     [.] z_solve()
+    12.20%           979  bt.S     [.] binvcrhs(double (*) [5], double (*) [5], double*)
+     7.30%           586  bt.S     [.] matmul_sub(double (*) [5], double (*) [5], double (*) [5])
+     1.32%           106  bt.S     [.] lhsinit(double (*) [3][5][5], int)
+     1.30%           104  bt.S     [.] matvec_sub(double (*) [5], double*, double*)
+     0.87%            70  bt.S     [.] exact_solution(double, double, double, double*)
+     0.50%            40  bt.S     [.] add()
+     0.40%            32  bt.S     [.] binvrhs(double (*) [5], double*)
+     0.20%            16  bt.S     [.] initialize()
+
+# Samples: 6K of event 'cpu_atom/instructions:u/'
+# Event count (approx.): 693600000
+#
+# Overhead       Samples  Command  Symbol                                                        
+# ........  ............  .......  ..............................................................
+#
+     8.69%           603  bt.S     [.] compute_rhs()
+     6.43%           446  bt.S     [.] x_solve()
+     5.74%           398  bt.S     [.] binvcrhs(double (*) [5], double (*) [5], double*)
+     5.52%           383  bt.S     [.] y_solve()
+     5.12%           355  bt.S     [.] z_solve()
+     2.83%           196  bt.S     [.] matmul_sub(double (*) [5], double (*) [5], double (*) [5])
+     1.02%            71  bt.S     [.] exact_solution(double, double, double, double*)
+     0.82%            57  bt.S     [.] matvec_sub(double (*) [5], double*, double*)
+     0.76%            53  bt.S     [.] exact_rhs()
+     0.46%            32  bt.S     [.] lhsinit(double (*) [3][5][5], int)
+     0.26%            18  bt.S     [.] binvrhs(double (*) [5], double*)
+     0.13%             9  bt.S     [.] add()
+     0.13%             9  bt.S     [.] initialize()
+     0.04%             3  bt.S     [.] error_norm(double*)
+
+
+#
+# (Cannot load tips.txt file, please install perf!)
+#

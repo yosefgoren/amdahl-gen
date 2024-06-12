@@ -1,19 +1,22 @@
 {
-    "$id": "config-significant.schema",
+    "$id": "alpha.config.schema",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
         "conf_type": {
             "type": "string",
             "enum": [
-                "significant"
+                "symbols_alpha"
             ]
         },
         "exe_path": {
-            "path": "string"
+            "type": "string"
         },
-        "thread_count": {
-            "type": "number"
+        "thread_counts": {
+            "type": "array",
+            "items": {
+                "type": "number"
+            }
         },
         "num_reps": {
             "type": "number"

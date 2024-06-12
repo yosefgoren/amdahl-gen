@@ -1,0 +1,35 @@
+{
+    "$id": "srclines.result.schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "required": [
+        "config",
+        "context",
+        "data"
+    ],
+    "type": "object",
+    "properties": {
+        "config": {
+            "$ref": "file:srclines/srclines.config.schema.json"
+        },
+        "context": {
+            "$ref": "file:framework/context.schema.json"
+        },
+        "data": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "lineno": {
+                        "type": "number"
+                    },
+                    "cycle_count": {
+                        "type": "number"
+                    },
+                    "instr_count": {
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    }
+}

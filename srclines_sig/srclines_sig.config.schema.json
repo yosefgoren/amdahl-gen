@@ -1,0 +1,22 @@
+{
+    "$id": "config-srclines-sig.schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "conf_type": {
+            "type": "string",
+            "enum": [
+                "srclines-sig"
+            ]
+        },
+        "exe_path": {
+            "path": "string"
+        },
+        "thread_count": {
+            "type": "number"
+        },
+        "num_reps": {
+            "type": "number"
+        }
+    }
+}

@@ -37,6 +37,11 @@ For example, the result file of a collection of type 'alpha' will be a `json` fi
 
 # Collection Types
 Currently supported collection types:
-* Sample
+* Srclines
+* Symbols
 * Significant
+    - SrclinesSig
+    - SymbolsSig
 * Alpha
+    - SrclinesAlpha
+    - SymbolsAlpha

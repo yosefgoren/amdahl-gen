@@ -45,13 +45,17 @@ class Config:
             #     for col_type, module in modules if module is not None
             # }
             
-            from sample.collection_info import SampleCollector as sample_col
-            from significant.collection_info import SignificantCollector as sig_col
-            from alpha.collection_info import AlphaCollector as alpha_col
+            from srclines.collection_info import SrclinesCollector
+            from srclines_sig.collection_info import SrclinesSigCollector
+            from symbols.collection_info import SymbolsCollector
+            from symbols_sig.collection_info import SymbolsSigCollector
+            from symbols_alpha.collection_info import SymbolsAlphaCollector
             Config._COLLECTORS = {
-                "sample": sample_col,
-                "significant": sig_col,
-                "alpha": alpha_col
+                "srclines": SrclinesCollector,
+                "symbols": SymbolsCollector,
+                "srclines_sig": SrclinesSigCollector,
+                "symbols_sig": SymbolsSigCollector,
+                "symbols_alpha": SymbolsAlphaCollector
             }
             
             

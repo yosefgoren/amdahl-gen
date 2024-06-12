@@ -14,6 +14,7 @@ class JobMaster:
             'amount_required': the number of results which satisfy the requirements of 'config' are required.
             'exclude_results': id's of results which should be ignored and not be included in results.
         """
+
         initial_matches: set[int] = self.db.query(config)
         
         valid_matches = initial_matches - exclude_results

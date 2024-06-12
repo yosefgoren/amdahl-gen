@@ -1,0 +1,1 @@
+"/usr/bin/perf" is not an ELF file

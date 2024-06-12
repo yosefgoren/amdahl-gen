@@ -9,6 +9,6 @@ int fib(int n){
 }
 
 int main(){
-    int num = 40;
+    int num = 45;
     printf("fib(%d)=%d\n", num, fib(num));
 }

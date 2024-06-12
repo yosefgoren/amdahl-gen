@@ -1,4 +1,4 @@
-TARGETS=fib-dynamic-gcc noploop circle
+TARGETS=fib-dynamic-gcc noploop
 
 all: $(TARGETS)
 

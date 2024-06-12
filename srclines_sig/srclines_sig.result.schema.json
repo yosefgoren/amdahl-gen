@@ -1,5 +1,5 @@
 {
-    "$id": "sample.result.schema",
+    "$id": "srclines-sig.result.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "required": [
         "config",
@@ -9,7 +9,7 @@
     "type": "object",
     "properties": {
         "config": {
-            "$ref": "file:sample/sample.config.schema.json"
+            "$ref": "file:srclines_sig/srclines_sig.config.schema.json"
         },
         "context": {
             "$ref": "file:framework/context.schema.json"
@@ -22,14 +22,12 @@
                     "lineno": {
                         "type": "number"
                     },
-                    "cycle_count": {
-                        "type": "number"
-                    },
-                    "instr_count": {
+                    "avg_ipc": {
                         "type": "number"
                     }
                 }
-            }
+            },
+            "additionalProperties": false
         }
     }
 }

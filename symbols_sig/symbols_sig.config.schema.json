@@ -1,18 +1,21 @@
 {
-    "$id": "sample.config.schema",
+    "$id": "config-symbols-sig.schema",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
         "conf_type": {
             "type": "string",
             "enum": [
-                "sample"
+                "symbols_sig"
             ]
         },
         "exe_path": {
-            "type": "string"
+            "path": "string"
         },
         "thread_count": {
+            "type": "number"
+        },
+        "num_reps": {
             "type": "number"
         }
     }

@@ -1,5 +1,5 @@
 {
-    "$id": "significant.result.schema.json",
+    "$id": "symbols-sig.result.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "required": [
         "config",
@@ -9,7 +9,7 @@
     "type": "object",
     "properties": {
         "config": {
-            "$ref": "file:significant/significant.config.schema.json"
+            "$ref": "file:symbols_sig/symbols_sig.config.schema.json"
         },
         "context": {
             "$ref": "file:framework/context.schema.json"
@@ -19,8 +19,8 @@
             "items": {
                 "type": "object",
                 "properties": {
-                    "lineno": {
-                        "type": "number"
+                    "symbol": {
+                        "type": "string"
                     },
                     "avg_ipc": {
                         "type": "number"

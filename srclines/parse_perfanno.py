@@ -26,12 +26,13 @@ def _assert_eq_or_none(target, value):
 
 def try_parse_lineno(txt: str) -> int:
     res = None
+    offset = 4
     try:
-        res = int(txt)-5
+        res = int(txt)-offset
     except Exception:
         pass
     if res is None or res < 0:
-        raise Exception(f"failed parsing supposed lineno (must be int > 4):\n\t{txt}")
+        raise Exception(f"failed parsing supposed lineno (must be int >= {offset}):\n\t{txt}")
     return res
 
 def _process_json_tree(jtree):

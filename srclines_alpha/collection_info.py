@@ -2,7 +2,7 @@ import json
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize
 import numpy as np
-from significant.collection_info import SignificantCollector
+from srclines_sig.collection_info import SrclinesSigCollector
 from framework.config import *
 from framework.job_master import *
 from framework.database import *

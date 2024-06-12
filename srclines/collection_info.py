@@ -2,8 +2,8 @@ import os
 from framework.job_master import *
 from framework.config import *
 from typing import Callable
-from sample.parse_perfanno import *
-from sample.parse_perfanno import parse_peranno_txt
+from srclines.parse_perfanno import *
+from srclines.parse_perfanno import parse_peranno_txt
 import framework.collections
 
 class ExecutionFail(Exception):
@@ -26,7 +26,7 @@ def _annotate_and_parse(data_path: str) -> str:
     with open(anno_path, 'r') as f:
         return parse_peranno_txt(f.read())
 
-class SampleCollector(framework.collections.Collector):
+class SrclinesCollector(framework.collections.Collector):
     def get_field_names(self) -> list[str]:
         return [
             "exe_path",
@@ -35,16 +35,16 @@ class SampleCollector(framework.collections.Collector):
         ]
 
     def get_collector(self) -> Callable:
-        return _collect_sample
+        return _collect_srclines
 
     def create_config(exe_path: str, thread_count: int) -> Config:
         return Config({
-            "conf_type": "sample",
+            "conf_type": "srclines",
             "exe_path": exe_path,
             "thread_count": thread_count,
         })
 
-def _collect_sample(master: JobMaster, config: SampleCollector) -> object:
+def _collect_srclines(master: JobMaster, config: SrclinesCollector) -> object:
     data_path = f"{config.exe_path}.tmp.data"
     # safesystem(f"numactl -N 0 perf record {exe_path} && mv perf.data {data_path}")
     exec_cmd = f"{config.exe_path}"
