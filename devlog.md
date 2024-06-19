@@ -1,3 +1,9 @@
+## TODO
+* create results visualization program
+* collections should statically (without collecting them) be able to determine what dependencies they have
+
+
+## Notes
 * need to know the line-number of each line of source code
 * attempted to do this by counting lines from start of each section's annotation
 * but this is unreliable:
