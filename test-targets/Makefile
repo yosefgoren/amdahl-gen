@@ -1,6 +1,9 @@
-TARGETS=fib-dynamic-gcc noploop
+TARGETS=fib-dynamic-gcc noploop cont
 
 all: $(TARGETS)
+
+cont: contention.c
+	gcc $< -g -O0 -fopenmp -o $@
 
 fib-dynamic-gcc: fib.c
 	gcc $< -g -o $@
