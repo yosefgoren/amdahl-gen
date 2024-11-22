@@ -2,7 +2,7 @@ import json
 import jsonschema
 import os, sys
 from framework.context import get_context
-from framework.collections import Collector
+from framework.collector import Collector
 import importlib
 
 # def _load_if_collection_type(type_name: str):

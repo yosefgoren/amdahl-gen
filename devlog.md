@@ -1,6 +1,6 @@
 ## TODO
 * create results visualization program
-* collections should statically (without collecting them) be able to determine what dependencies they have
+* collector should statically (without collecting them) be able to determine what dependencies they have
 
 
 ## Notes

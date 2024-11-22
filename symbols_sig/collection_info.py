@@ -1,6 +1,6 @@
 from framework.config import *
 from framework.job_master import *
-import framework.collections
+import framework.collector
 from symbols.collection_info import SymbolsCollector
 from common.operators import *
 from typing import Callable
@@ -14,7 +14,7 @@ def _average(s: list) -> float | None:
     return sum(s)/len(s)
 
 
-class SymbolsSigCollector(framework.collections.Collector):
+class SymbolsSigCollector(framework.collector.Collector):
     def get_field_names(self) -> list[str]:
         return [
             "exe_path",

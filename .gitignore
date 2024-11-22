@@ -4,3 +4,4 @@ db_storage/
 graphs/
 .vscode/
 tmp.py
+test-targets/

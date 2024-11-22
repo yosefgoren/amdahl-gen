@@ -4,7 +4,7 @@ from framework.config import *
 from typing import Callable
 from srclines.parse_perfanno import *
 from srclines.parse_perfanno import parse_peranno_txt
-import framework.collections
+import framework.collector
 
 class ExecutionFail(Exception):
     def __init__(self, retval):
@@ -26,7 +26,7 @@ def _annotate_and_parse(data_path: str) -> str:
     with open(anno_path, 'r') as f:
         return parse_peranno_txt(f.read())
 
-class SrclinesCollector(framework.collections.Collector):
+class SrclinesCollector(framework.collector.Collector):
     def get_field_names(self) -> list[str]:
         return [
             "exe_path",

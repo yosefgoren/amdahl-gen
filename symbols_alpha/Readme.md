@@ -5,7 +5,7 @@ More speicifically 'alpha' is the 'proportion' of this line which is paralleliza
 
 ### Configuration
 [The configuration schema](schemas/alpha.config.schema.json) requires a list of thread counts which will be used to evaluate alpha,
-and a repetition count which determines how many times each thread count sample to be taken for.
+and a repetition count which determines how many times each thread count sample should be taken.
 
 ### Collector
 The collector follows these steps:

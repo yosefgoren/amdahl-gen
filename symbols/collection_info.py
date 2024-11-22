@@ -2,7 +2,7 @@ import os
 from framework.job_master import *
 from framework.config import *
 from typing import Callable
-import framework.collections
+import framework.collector
 
 """
 This refers to the perf-report option:
@@ -72,7 +72,7 @@ def _report_and_parse(exe_path: str, data_path: str) -> str:
                 
 
 
-class SymbolsCollector(framework.collections.Collector):
+class SymbolsCollector(framework.collector.Collector):
     def get_field_names(self) -> list[str]:
         return [
             "exe_path",

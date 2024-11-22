@@ -6,7 +6,7 @@ from symbols_sig.collection_info import SymbolsSigCollector
 from framework.config import *
 from framework.job_master import *
 from framework.database import *
-from framework.collections import *
+from framework.collector import *
 from common.operators import map_bysym
 
 class TargetFunc:

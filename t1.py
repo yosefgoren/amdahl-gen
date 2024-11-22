@@ -58,7 +58,7 @@ def get_chat(func, perf):
             "role": "system"
         },
         {
-            "content": f"In the scale of 'Poory/Reasonably/Well', how well does the function: '{func}' scale as the number of threads increases?",
+            "content": f"In the scale of 'Poorly/Reasonably/Well', how well does the function: '{func}' scale as the number of threads increases?",
             "role": "user"
         },
         {
